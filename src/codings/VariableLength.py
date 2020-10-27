@@ -19,15 +19,3 @@ def VB_coding(dictionary):
             values += math.ceil(math.log2(posting + 1)) / 7
         compressed_posting.append(values / 8)
     return round(sum(compressed_posting) / len(compressed_posting), 2)
-
-
-COMPRESSIONS = {"VB": VB_coding}
-
-
-def compression_posting_list(dictionary):
-    val = []
-    for methods in COMPRESSIONS:
-        print("Compression of posting list with ", methods)
-        val.append(COMPRESSIONS[methods](dictionary))
-    print(val)
-    return val

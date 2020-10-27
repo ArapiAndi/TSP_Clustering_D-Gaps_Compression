@@ -4,7 +4,7 @@ import time
 
 # implanted functions
 from src.Clustering import do_clustering
-from src.CompressionsPostingList import compression_posting_list
+from src.Compression_PostingLists import compression_posting_list
 from src.CreateDictionary import create_dictionary
 from src.Remapping import tsp_medoids_mapping, get_remapping_dictionary
 
@@ -16,14 +16,18 @@ if __name__ == '__main__':
 
     f = open("data/results/result.txt", 'w')
     sys.stdout = f
+
+    # read dictionary
     d, n = create_dictionary()
+
+    print("\n\n")
 
     # order the postings list of the dictionary in increasing order
     d = dict(sorted(d.items(), key=operator.itemgetter(1), reverse=False))
 
     # apply the VB, Elias Gamma, Elias Delta Encoding of the posting lists
-    print("\n\n| Without TSP |")
-    compression_posting_list(d)
+    c1 = compression_posting_list(d)
+    print("|Without TSP|", c1)
 
     # apply TSP-Clustering producing the new inducted number of documents by the similarity
     for r in RADIUS:
@@ -36,8 +40,10 @@ if __name__ == '__main__':
         new_d = get_remapping_dictionary(d, mapping)
 
         # apply the VB, Elias Gamma, Elias Delta Encoding of the TSP mapping posting lists
-        print("\n\n| WITH TSP |")
-        compression_posting_list(new_d)
 
-        print("Finish: ", "--- %s seconds ---" % (time.time() - start_time))
+        c2 = compression_posting_list(new_d)
+
+        print("|With TSP|", c2)
+
+        print("Finish: ", "%s seconds" % round(time.time() - start_time, 2))
     f.close()
