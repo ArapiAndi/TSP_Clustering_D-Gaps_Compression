@@ -19,7 +19,7 @@ def elias_generic(lencoding, x):
 
     k = int(math.log2(x))
 
-    return len(lencoding(l) + Binary(a, k))
+    return lencoding(l) + Binary(a, k)
 
 
 def Elias_Delta(x):
@@ -40,6 +40,6 @@ def Elias_coding(dictionary, isGamma=True):
     for term in dictionary:
         values = 0
         for posting in dictionary[term]:
-            values += coding(posting)
+            values += len(coding(posting))
         compressed_posting.append(values / 8)
     return round(sum(compressed_posting) / len(compressed_posting), 2)
