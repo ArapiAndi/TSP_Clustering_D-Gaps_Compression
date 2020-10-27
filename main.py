@@ -4,17 +4,17 @@ import time
 
 # implanted functions
 from src.Clustering import do_clustering
-from src.Compression_PostingLists import compression_posting_list
+from src.codings.Compression_PostingLists import compression_posting_list
 from src.CreateDictionary import create_dictionary
 from src.Remapping import tsp_medoids_mapping, get_remapping_dictionary
 
-RADIUS = [.99]  # ,.98, .97]
+RADIUS = [.99, .98]  # ,.98, .97]
 
 if __name__ == '__main__':
 
-    print("Wait! The results will saved after execution in \'data/results/result.txt\'....")
+    print("Wait! The results will saved after execution in \'data/result.txt\'....")
 
-    f = open("data/results/result.txt", 'w')
+    f = open("data/result.txt", 'w')
     sys.stdout = f
 
     # read dictionary
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
         print("|With TSP|", c2)
 
-        print("Improvements: ", [round(b / a, 2) for a, b in zip(c1, c2)], " %")
+        print("Improvements: ", [round(1 - (b / a), 2) * 100 for a, b in zip(c1, c2)], " %")
 
         print("Finish: ", "%s seconds" % round(time.time() - start_time, 2))
     f.close()
