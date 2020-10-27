@@ -16,7 +16,7 @@ def VB_coding(dictionary):
     for term in dictionary:
         values = 0
         for posting in d_gap(dictionary[term]):
-            values += math.ceil(math.log2(posting+1) / 7)
+            values += math.ceil(math.log2(posting + 1)) / 7
         compressed_posting.append(values / 8)
     return round(sum(compressed_posting) / len(compressed_posting), 2)
 

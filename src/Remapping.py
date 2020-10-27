@@ -29,5 +29,5 @@ def get_remapping_dictionary(dictionary, mapping):
         new_posting = []
         for posting in dictionary[term]:
             new_posting.append(mapping[posting - 1])
-        new_dictionary[term] = new_posting
+        new_dictionary[term] = sorted(new_posting)
     return new_dictionary
