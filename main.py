@@ -4,7 +4,8 @@ import operator
 from src.Clustering import do_clustering
 from src.CompressionsPostingList import compression_posting_list
 from src.CreateDictionary import create_dictionary
-from src.TSP import tsp_medoids_ordering
+from src.Remapping import tsp_medoids_mapping, get_remapping_dictionary
+from src.TSP import call_TSP
 
 RADIUS = [.99]
 
@@ -15,13 +16,19 @@ if __name__ == '__main__':
     d = dict(sorted(d.items(), key=operator.itemgetter(1), reverse=False))
 
     # apply the VB, Elias Gamma, Elias Delta Encoding of the posting lists
-    # compression_posting_list(d)
+    print("\n\n| Without TSP |")
+    compression_posting_list(d)
 
     # apply TSP-Clustering producing the new inducted number of documents by the similarity
     for r in RADIUS:
         medoids, clusters = do_clustering(d, n, r)
-        print(tsp_medoids_ordering(medoids, n))
+        print("\n With radius: ", RADIUS, " the number of medoids are: ", len(medoids))
+        mapping = tsp_medoids_mapping(medoids, clusters, n)
 
-    # apply the VB, Elias Gamma, Elias Delta Encoding of the posting lists
+        # get rempped dictionary with posting list sorted, gap motivation
+        new_d = get_remapping_dictionary(d, mapping)
+        new_d = dict(sorted(new_d.items(), key=operator.itemgetter(1)))
 
-    # extract the avg. of bytes and improvement
+        # apply the VB, Elias Gamma, Elias Delta Encoding of the TSP mapping posting lists
+        print("\n\n| WITH TSP |")
+        compression_posting_list(new_d)

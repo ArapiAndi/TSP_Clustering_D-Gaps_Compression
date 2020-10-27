@@ -1,5 +1,12 @@
-"""
 
+"""
+Structure of data:
+
+docId_terms -> [(termsID,docID),....,(termsID,docID)]
+
+medodis -> [(docID, termsID,clusterID),.....,(docID, termsId,clusterID)]
+
+clusters -> [[docId,...,docID],.....,[docId,...,docID]]
 
 
 """
@@ -18,7 +25,7 @@ def distance_jaccard(doc1, doc2):
 def find_medoids(medoids, doc_terms):
     if not medoids:  # no clusters yet
         return 1, []
-    doc_id, terms_id, cluster_id, = medoids[0]  # given
+    doc_id, terms_id, cluster_id = medoids[0]  # given
     distance, k = distance_jaccard(terms_id, doc_terms), cluster_id
     for doc_id, terms_id, cluster_id in medoids[1:]:  # permit to select the minimum from all distance
         new_distance = distance_jaccard(terms_id, doc_terms)
@@ -28,7 +35,7 @@ def find_medoids(medoids, doc_terms):
     return distance, k
 
 
-def stream_cluster(docID_TermsID: tuple, radius):
+def stream_cluster(docID_TermsID, radius):
     k = 0  # number of cluster
 
     medoids = []  # list of (doc-termsID,docID, clusterID)
