@@ -1,6 +1,6 @@
 import math
 
-from src.codings.Elias import Elias_Gamma
+from src.codings.Elias import Elias_Gamma, Elias_Delta
 
 DIM_INT = 32
 DIM_VB = 7
@@ -20,7 +20,7 @@ def Elias_coding(dictionary, isGamma=True):
     if isGamma:
         coding = Elias_Gamma
     else:
-        coding = Elias_Gamma
+        coding = Elias_Delta
 
     compressed_posting = []
     for term in dictionary:
