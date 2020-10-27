@@ -1,7 +1,23 @@
 import math
+import numpy as np
+
 
 def Unary(x):
-    return (x - 1) * '0' + '1'
+    u = np.ones(x + 1)
+    u[x] = 0
+    s = ""
+    for elem in u:
+        s = s + str(int(elem))
+    return s
+
+
+def offset(x):
+    for i in range(len(x)):
+        if x[i] == '1':
+            x = x[1:]
+            break
+        x = x[1:]
+    return x
 
 
 def Binary(x, l=1):
@@ -22,11 +38,13 @@ def elias_generic(lencoding, x):
 
 
 def Elias_Delta(x):
-    return elias_generic(Elias_Gamma, x)
+    b = Binary(x)
+    return Elias_Gamma(len(offset(b))) + offset(b)
 
 
 def Elias_Gamma(x):
-    return elias_generic(Unary, x)
+    off = offset(Binary(x))
+    return Unary(len(off)) + off
 
 
 
