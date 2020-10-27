@@ -1,20 +1,5 @@
 """
-   medoids: [medoid_0, .... , medoid_k ]
-   medoid_i:  (doc-termsID,clusterID,docID)
 
-   clusters: { 0: [(doc-termsID,docID)...], 1:[(doc-termsID,docID)...],...., k:[(doc-termsID,docID)...] }
-
-    get_docs_set_terms_id(dictionary, n): given dictionary and number of documents give a set of document vectors
-                                          (doc-terms) which contain the terms indexed in lexicographic order in
-                                          dictionary, in growing ordering. return-> list of [(doc-termsID),docID]
-
-    stream_cluster(sorted_collection, radius): given the set of doc-terms vector permit to obtain clusters and specific
-                                               medoids
-
-    find_medoid(medoids, doc): permit to classify selecting the minimum Jaccard Distance between medoid of
-                               the clusters and  specific doc-terms.
-
-    def distance_jaccard(doc1, doc2): permit to calculate the distance between two set, small is better for similarity.
 
 
 """
@@ -33,13 +18,14 @@ def distance_jaccard(doc1, doc2):
 def find_medoids(medoids, doc_terms):
     if not medoids:  # no clusters yet
         return 1, []
-    first_medoid, cluster_id, doc_id = medoids[0]  # given
-    distance = distance_jaccard(first_medoid, doc_terms), cluster_id
-    for medoid, cluster_id, doc_id in medoids[1:]:  # permit to select the minimum from all distance
-        new_distance = distance_jaccard(medoid, doc_terms)
-        if new_distance < distance[0]:
-            distance = new_distance, cluster_id
-    return distance
+    doc_id, terms_id, cluster_id, = medoids[0]  # given
+    distance, k = distance_jaccard(terms_id, doc_terms), cluster_id
+    for doc_id, terms_id, cluster_id in medoids[1:]:  # permit to select the minimum from all distance
+        new_distance = distance_jaccard(terms_id, doc_terms)
+        if new_distance < distance:
+            distance = new_distance
+            k = cluster_id
+    return distance, k
 
 
 def stream_cluster(docID_TermsID: tuple, radius):
@@ -54,9 +40,9 @@ def stream_cluster(docID_TermsID: tuple, radius):
         if distance <= radius:
             clusters[cluster_id].append(doc_id)  # add to cluster
         else:
-            medoids.append((doc_terms_id, k, doc_id))  # create new cluster and medoid
+            medoids.append((doc_id, doc_terms_id, k))  # create new cluster and medoid
             clusters[k] = []
-            k += 1  # increment number of cluster
+            k += 1  # increment numbers of cluster
     return medoids, clusters
 
 
