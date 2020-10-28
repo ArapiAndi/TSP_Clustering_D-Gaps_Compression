@@ -11,15 +11,6 @@ def Unary(x):
     return s
 
 
-def offset(x):
-    for i in range(len(x)):
-        if x[i] == '1':
-            x = x[1:]
-            break
-        x = x[1:]
-    return x
-
-
 def Binary(x, l=1):
     s = '{0:0%db}' % l
     return s.format(x)
@@ -38,13 +29,12 @@ def elias_generic(lencoding, x):
 
 
 def Elias_Delta(x):
-    b = Binary(x)
-    return Elias_Gamma(len(offset(b))) + offset(b)
+    off = Binary(x)[1:]
+    return Elias_Gamma(len(off)) + off
 
 
 def Elias_Gamma(x):
-    off = offset(Binary(x))
+    off = Binary(x)[1:]
     return Unary(len(off)) + off
-
 
 
