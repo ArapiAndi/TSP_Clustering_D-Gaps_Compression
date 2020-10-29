@@ -1,11 +1,8 @@
-# Compression of Posting Lists  with Clustering and TSP
-
-
+# Compression of D-gaps Posting Lists with Clustering and TSP method
 
 ```
 Arapi Andi
-Venice,
-October 27, 2020
+Venice, October 27/10/2020
 ```
 
 ### Introduction
