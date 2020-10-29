@@ -10,15 +10,13 @@ clusters -> [[docId,...,docID],.....,[docId,...,docID]]
 
 """
 
-ROUND = 5  # float numbers round
+ROUND = 3  # float numbers round
 
 
 def distance_jaccard(doc1, doc2):
-    if doc1 and doc2:
-        intersection_docs = list(set(doc1) & set(doc2))
-        return round(1-len(intersection_docs) / (len(doc1 + doc2)), ROUND)
-    else:
-        return 1
+    intersection_docs = list(set(doc1) & set(doc2))
+    return round(1 - len(intersection_docs) / (len(doc1 + doc2)), ROUND)
+
 
 
 def find_medoids(medoids, doc_terms):

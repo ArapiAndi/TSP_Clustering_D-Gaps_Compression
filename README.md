@@ -2,7 +2,7 @@
 
 ```
 Arapi Andi
-Venice, October 27/10/2020
+27/10/2020, Italy (Venice)
 ```
 
 ### Introduction
@@ -20,7 +20,7 @@ algorithm 1
 
 
 ### Getting Started
-The program is implemented in Python 3.7 and the perquisites are have installed the follow package:
+The program is implemented in Python 3.7 and the perquisites are have installed the following package:
 
 * ortools.constraint\_solver
 * numpy 1.18+
@@ -28,8 +28,8 @@ The program is implemented in Python 3.7 and the perquisites are have installed 
 
 ### How to use
 For practical reasons I used the dataset locally, so in order to execute different documents in the program,
-it is necessary to place them in the path 'data/documents/' in '.dat' forma . The value of the **radius** can
-as well be changed, specifically at **row 11** in _main.py_. I save the result of computation in the path 'data/result.txt'
+it is necessary to place them in the path 'data/documents/' in '.dat' form . The value of the **radius** can
+as well be changed, specifically at **row 11** in _main.py_. I save the computational results in the path 'data/result.txt'
  with information about the radius, number of medoids and performance of compression.
 
 ### Results
@@ -48,32 +48,52 @@ Total no. of postings: 1.813873
 
  
 Given the posting lists I use  Variable Length, Elias Gamma and Delta for the compression of gaps, the average of byte 
-per posting is reported in the follow table: 
+per posting is reported in the following table: 
 
 
-|Coding |AVG. Byte|
+|Encoding |AVG. Byte|
 |-----|--------|
 |VB |73.76|
 |Elias Gamma |112.49|
 |Elias Delta |86.24|
 
-With Radius=0.99 I have 15 medoids with the follow characteristics:
+With Radius=0.99 I have 15 medoids with the following characteristics:
 
-|Coding |AVG. Byte|Performance|
+|Encoding |AVG. Byte|Performance|
 |-----|--------|--------------|
 |VB |72.69|1.45%|
 |Elias Gamma |103.41|8.07%|
 |Elias Delta | 81.24| 5.79%|
 
-With Radius=0.96 I have x medoids with the follow characteristics:
+With Radius=0.96 I have x medoids with the following characteristics:
 
-|Coding |AVG. Byte|Performance|
+|Encoding |AVG. Byte|Performance|
 |-----|--------|--------------|
 |VB |72.59| 1.58% |
 |Elias Gamma |103.35 | 8.12% |
 |Elias Delta | 81.18 | 5.86% |
+  
+<br></br>  
+**Compression power** for measuring the compression power of the docID assignment topic of this document, the average 
+number of bits per d-gap is computed using Variable Byte, Elias Gamma and Elias Delta encodings first with
+and then without using the compression algorithm. Table 1 presents the average number of bits per d-gap when the 
+compression algorithm is not used. The best one is by far the Varaible Length encoding.
+Table 2 and 3 show the average number of bits per d-gap when the compression algorithm is used with the radius parameter
+ of the clustering algorithm
+respectively set to 0.99 and 0.98. The lower this hyper-parameter is,
+the better the results are and it is possible to notice that the best improvements
+are always given when Elias Gamma and Elias Delta code are used. Indeed bit-level codes
+<br></br> <br></br> 
+
+**Radius hyperparameter** implies reductions a lower variance and and
+better results in terms of compression power but on the other hand leads to an
+increase of the computational time for both clustering and TSP, since an higher
+number of clusters is obtained.
+
+
 
 ### Conclusions
+
 
 Small radius increases number of clusters which reduce space occupied by postings but increase the computational time for the clustering and TSP which is a 
 NP-HARD problem, I have summarize as follow the property. 

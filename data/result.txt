@@ -1,0 +1,26 @@
+Total no. of documents: 23810
+Total no. of terms: 48948
+Total no. of postings: 1813873
+
+
+
+Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'])
+|Without TSP| [73.76, 112.49, 86.24]
+
+ With radius:  0.99  the number of medoids are:  17
+Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'])
+|With TSP| [72.64, 103.33, 81.2]
+Improvements:  [1.52, 8.14, 5.84]  %
+Finish:  58.83 seconds
+
+ With radius:  0.98  the number of medoids are:  37
+Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'])
+|With TSP| [72.59, 103.38, 81.2]
+Improvements:  [1.59, 8.1, 5.84]  %
+Finish:  56.59 seconds
+
+ With radius:  0.97  the number of medoids are:  85
+Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'])
+|With TSP| [72.91, 107.9, 83.42]
+Improvements:  [1.15, 4.08, 3.27]  %
+Finish:  59.39 seconds

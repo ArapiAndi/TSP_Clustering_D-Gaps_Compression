@@ -8,7 +8,7 @@ from src.codings.CompressionPostingLists import compression_posting_list
 from src.CreateDictionary import create_dictionary
 from src.Remapping import tsp_medoids_mapping, get_remapping_dictionary
 
-RADIUS = [.99,.98]
+RADIUS = [.99, .98,.97]
 
 if __name__ == '__main__':
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
         print("|With TSP|", c2)
 
         # Calculation of improvement of TSP compression respect others
-        print("Improvements: ", [(1 - (b / a)) * 100 for a, b in zip(c1, c2)], " %")
+        print("Improvements: ", [round((1 - (b / a)) * 100, 2) for a, b in zip(c1, c2)], " %")
 
         print("Finish: ", "%s seconds" % round(time.time() - start_time, 2))
         i += 1
