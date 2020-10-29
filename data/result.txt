@@ -10,11 +10,11 @@ Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'
  With radius:  0.99  the number of medoids are:  15
 Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'])
 |With TSP| [72.69, 103.41, 81.24]
-Improvements:  [1.0, 8.0, 6.0]  %
-Finish:  83.52 seconds
+Improvements:  [1.4506507592190965, 8.071828606987285, 5.797773654916516]  %
+Finish:  59.32 seconds
 
  With radius:  0.98  the number of medoids are:  42
 Compression of posting list with:  dict_keys(['VB', 'Elias_Gamma', 'Elias_Delta'])
 |With TSP| [72.59, 103.35, 81.18]
-Improvements:  [2.0, 8.0, 6.0]  %
-Finish:  142.43 seconds
+Improvements:  [1.5862255965292893, 8.1251666814828, 5.867346938775498]  %
+Finish:  61.94 seconds
