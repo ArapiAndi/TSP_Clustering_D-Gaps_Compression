@@ -1,9 +1,7 @@
 import math
-
 from src.codings.Elias import Elias_Gamma, Elias_Delta
 
-DIM_INT = 32
-DIM_VB = 7
+BYTE = 8
 
 
 def d_gap(postings):
@@ -26,8 +24,8 @@ def Elias_coding(dictionary, isGamma=True):
     for term in dictionary:
         values = 0
         for posting in d_gap(dictionary[term]):
-            values += len(coding(posting)) / DIM_INT
-        compressed_posting.append(values)
+            values += len(coding(posting))
+        compressed_posting.append(math.ceil(values / BYTE))
     return round(sum(compressed_posting) / len(compressed_posting), 2)
 
 
@@ -36,7 +34,8 @@ def VB_coding(dictionary):
     for term in dictionary:
         values = 0
         for posting in d_gap(dictionary[term]):
-            values += math.ceil(math.log2(posting + 1)) / DIM_VB
+            # bytes needed x terms
+            values += math.ceil(math.log2(posting + 1) / (BYTE - 1))
         compressed_posting.append(values)
     return round(sum(compressed_posting) / len(compressed_posting), 2)
 

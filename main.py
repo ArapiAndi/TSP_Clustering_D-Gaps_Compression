@@ -8,7 +8,8 @@ from src.codings.Compression_PostingLists import compression_posting_list
 from src.CreateDictionary import create_dictionary
 from src.Remapping import tsp_medoids_mapping, get_remapping_dictionary
 
-RADIUS = [.99 ,.98, .97]
+RADIUS = [.99]
+
 
 if __name__ == '__main__':
 
@@ -29,18 +30,18 @@ if __name__ == '__main__':
     c1 = compression_posting_list(d)
     print("|Without TSP|", c1)
 
+    i = 0
     # apply TSP-Clustering producing the new inducted number of documents by the similarity
     for r in RADIUS:
         start_time = time.time()
         medoids, clusters = do_clustering(d, n, r)
-        print("\n With radius: ", RADIUS, " the number of medoids are: ", len(medoids))
+        print("\n With radius: ", RADIUS[i], " the number of medoids are: ", len(medoids))
         mapping = tsp_medoids_mapping(medoids, clusters, n)
 
-        # get rempped dictionary with posting list sorted, gap motivation
+        # get remapped dictionary with posting list sorted, gap motivation
         new_d = get_remapping_dictionary(d, mapping)
 
-        # apply the VB, Elias Gamma, Elias Delta Encoding of the TSP mapping posting lists
-
+        # apply the VB, Elias Gamma, Elias Delta Encoding of the TSP remapped posting lists
         c2 = compression_posting_list(new_d)
 
         print("|With TSP|", c2)
@@ -49,4 +50,5 @@ if __name__ == '__main__':
         print("Improvements: ", [round(1 - (b / a), 2) * 100 for a, b in zip(c1, c2)], " %")
 
         print("Finish: ", "%s seconds" % round(time.time() - start_time, 2))
+        i += 1
     f.close()

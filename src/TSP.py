@@ -5,13 +5,29 @@ from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 from src.Clustering import distance_jaccard
 
+START = 0
+
+def find_centrality_medoid(graph_matrix):
+    k, j_max, j = 0, 1, 0
+    n = len(graph_matrix)
+    for i in range(n):
+        j += sum(graph_matrix[i, :])
+
+        if j < j_max:
+            j_max = j
+            k = i
+        j = 0
+    return k
+
 
 def create_graph_matrix(medoids):
     n = len(medoids)
     graph_matrix = numpy.zeros((n, n))
     for i in range(n):
         for j in range(n):
-            graph_matrix[i][j] = distance_jaccard((medoids[i])[1], (medoids[j])[1])
+            if not i == j:
+                graph_matrix[j][i] = distance_jaccard((medoids[i])[1], (medoids[j])[1])
+                graph_matrix[i][j] = graph_matrix[j][i]
     return graph_matrix
 
 
@@ -20,14 +36,15 @@ def create_data_model(graph_matrix):
     data = {}
     data['distance_matrix'] = graph_matrix
     data['num_vehicles'] = 1
-    data['depot'] = 0
+    START = find_centrality_medoid(graph_matrix)
+    data['depot'] = START
     return data
 
 
 def get_routing(manager, routing, solution):
     """Prints solution on console."""
     rout = []
-    index = routing.Start(0)
+    index = routing.Start(START)
     while not routing.IsEnd(index):
         rout.append(manager.IndexToNode(index))
         index = solution.Value(routing.NextVar(index))

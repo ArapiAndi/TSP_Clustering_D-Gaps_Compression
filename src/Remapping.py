@@ -18,7 +18,7 @@ def get_mapping_docID(tsp_medoids_order, medoids, clusters, n):
 # permit to obtain the mapping, documents with same similarities
 def tsp_medoids_mapping(medoids, clusters, n):
     ordered_medoids = call_TSP(medoids)
-    #print("TSP medoids order: ", ordered_medoids)
+    # print("TSP medoids order: ", ordered_medoids)
     mapping = get_mapping_docID(ordered_medoids, medoids, clusters, n)
     return mapping
 

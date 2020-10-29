@@ -1,4 +1,3 @@
-import math
 import numpy as np
 
 
@@ -16,25 +15,13 @@ def Binary(x, l=1):
     return s.format(x)
 
 
-def elias_generic(lencoding, x):
-    if x == 0:
-        return '0'
-
-    l = 1 + int(math.log2(x))
-    a = x - 2 ** (int(math.log2(x)))
-
-    k = int(math.log2(x))
-
-    return lencoding(l) + Binary(a, k)
-
-
 def Elias_Delta(x):
     off = Binary(x)[1:]
-    return Elias_Gamma(len(off)) + off
+    length = len(off)
+    return Elias_Gamma(length) + off
 
 
 def Elias_Gamma(x):
     off = Binary(x)[1:]
-    return Unary(len(off)) + off
-
-
+    length = len(off)
+    return Unary(length) + off

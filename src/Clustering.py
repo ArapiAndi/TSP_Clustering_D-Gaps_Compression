@@ -1,4 +1,3 @@
-
 """
 Structure of data:
 
@@ -16,10 +15,10 @@ ROUND = 5  # float numbers round
 
 def distance_jaccard(doc1, doc2):
     if doc1 and doc2:
-        intersection_docs = [value for value in doc1 if value in doc2]
-        return round(1 - len(intersection_docs) / (len(doc1 + doc2)), ROUND)
+        intersection_docs = list(set(doc1) & set(doc2))
+        return round(1-len(intersection_docs) / (len(doc1 + doc2)), ROUND)
     else:
-        return 0
+        return 1
 
 
 def find_medoids(medoids, doc_terms):
