@@ -1,5 +1,5 @@
 from os import walk
-import operator
+
 
 '''
     dict: dictionary containing for each term (key) a list of docIDs (posting List of integers)
